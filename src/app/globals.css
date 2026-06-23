@@ -1,26 +1,198 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-saffron: #e8721e;
+  --color-gold: #d4af37;
+  --color-gold-lt: #f0d560;
+  --color-maroon: #7b2d2d;
+  --color-cream: #fff8f0;
+  --color-ivory: #fffdf9;
+  --color-warm-gray: #f5ede0;
+  --color-text: #2c1810;
+  --color-text-mid: #6b4226;
+  --color-text-lt: #a07050;
+  --color-dark: #1a0c06;
+
+  --font-display: var(--font-cormorant), Georgia, serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-cinzel: var(--font-cinzel), serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #fff8f0;
+}
+::-webkit-scrollbar-thumb {
+  background: #d4af37;
+  border-radius: 10px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Scroll Progress Bar */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  z-index: 9000;
+  background: linear-gradient(
+    90deg,
+    #e8721e,
+    #d4af37,
+    #f0d560
+  );
+  width: 0%;
+  transition: width 0.1s linear;
+  pointer-events: none;
+}
+
+/* Cursor Glow Effect */
+#cursor-glow {
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(
+    circle,
+    rgba(212, 175, 55, 0.07) 0,
+    transparent 70%
+  );
+  border-radius: 50%;
+  position: fixed;
+  top: -160px;
+  left: -160px;
+  pointer-events: none;
+  z-index: 1;
+  transition: transform 80ms linear;
+}
+
+/* Page Loader styling constraints */
+#loader {
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+#loader.done {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Keyframe Animations */
+@keyframes spin {
+  from { transform: rotate(0); }
+  to { transform: rotate(360deg); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+@keyframes omGlow {
+  0%, 100% { text-shadow: 0 0 10px rgba(212, 175, 55, 0.4); }
+  50% { text-shadow: 0 0 30px rgba(212, 175, 55, 0.8), 0 0 60px rgba(212, 175, 55, 0.3); }
+}
+@keyframes dotPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.5); }
+}
+@keyframes slowSpin {
+  from { transform: translateY(-50%) rotate(0); }
+  to { transform: translateY(-50%) rotate(360deg); }
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes chipFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes lbIn {
+  from { opacity: 0; transform: scale(0.94); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Animation trigger classes */
+.spin-cw {
+  animation: spin 8s linear infinite;
+  transform-origin: center;
+}
+.spin-ccw {
+  animation: spin 12s linear infinite reverse;
+  transform-origin: center;
+}
+.loader-text {
+  animation: pulse 2s ease-in-out infinite;
+}
+.logo-om {
+  animation: omGlow 3s ease-in-out infinite;
+}
+.hb-dot {
+  animation: dotPulse 2s ease-in-out infinite;
+}
+.hero-mandala-wrap {
+  animation: slowSpin 60s linear infinite;
+}
+.hero-scroll {
+  animation: bounce 2.5s ease-in-out infinite;
+}
+.marquee-track {
+  animation: marqueeScroll 28s linear infinite;
+}
+.av-chip {
+  animation: chipFloat 5s ease-in-out infinite;
+}
+.pvq-om {
+  animation: omGlow 4s ease-in-out infinite;
+}
+.qf-om {
+  animation: omGlow 4s ease-in-out infinite;
+}
+.ftb-om {
+  animation: omGlow 4s ease-in-out infinite;
+}
+
+/* SVG Background Pattern Overlays */
+.prabhupada-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23D4AF37' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none;
+}
+.stats-band::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='20' cy='20' r='3'/%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none;
+}
+#teachings::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23D4AF37' fill-opacity='0.03'%3E%3Ccircle cx='40' cy='40' r='2'/%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+/* Journey Cards snap scrolling fixes */
+.journey-cards {
+  scrollbar-width: thin;
+  scrollbar-color: #d4af37 transparent;
+}
+.journey-cards::-webkit-scrollbar {
+  height: 4px;
+}
+.journey-cards::-webkit-scrollbar-thumb {
+  background: #d4af37;
+  border-radius: 4px;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+body.ready {
+  opacity: 1;
 }
